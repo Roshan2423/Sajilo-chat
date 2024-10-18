@@ -5,6 +5,8 @@ from django.contrib.auth.views import LogoutView, PasswordChangeView  # Import P
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.index, name='index'),  # Ensure this points to your chatbot's homepage
+    path('chat/', views.chat, name='chat'),
     path('', include('myapp.urls')),
     path('login/', views.login_view, name='login'),
     path('signup/', views.signup_view, name='signup'),

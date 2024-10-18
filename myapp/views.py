@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from myapp.forms import CustomSignupForm
 from myapp.models import QuestionAnswer
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from .models import UserChatHistory
 from django.http import JsonResponse
 import json
@@ -323,3 +324,5 @@ def chat(request):
 
     
 
+def index(request):
+    return HttpResponse("<h1>Welcome to Sajilo Chat!</h1>")
