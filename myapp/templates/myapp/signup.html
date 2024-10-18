@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Account</title>
+    {% load static %}  <!-- Add this line to load the static files -->
+    <link rel="stylesheet" href="{% static 'myapp/css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Pacifico&family=Raleway:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <h2>Create an Account</h2>
+            <form method="post" action="{% url 'signup' %}">
+                {% csrf_token %}
+                {{ form.as_p }}  <!-- Render form fields from the view -->
+                <button type="submit" class="auth-btn">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="{% url 'login' %}">Sign In</a></p>
+            {% if form.non_field_errors %}
+            <div class="password-container">
+                <label for="password">Password*</label>
+                <input type="password" id="password" name="password" required>
+                <span id="togglePassword" style="cursor: pointer;">👁️</span>
+            </div>
+            <div class="password-container">
+                <label for="password2">Password confirmation*</label>
+                <input type="password" id="password2" name="password2" required>
+                <span id="togglePassword2" style="cursor: pointer;">👁️</span>
+            </div>
+                <div class="error">{{ form.non_field_errors }}</div> <!-- Display non-field errors -->
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

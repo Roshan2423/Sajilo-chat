@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Existing head content -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot for Travel</title>
+    <link rel="stylesheet" href="{% static 'myapp/css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Pacifico&family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <!-- Include Highlight.js CSS for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <!-- Include DOMPurify -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+    <!-- Include your script.js -->
+    <script src="{% static 'myapp/js/script.js' %}" defer></script>
+</head>
+<body>
+    <!-- Wrapper to center content -->
+    <div class="chat-container">
+        <!-- Sidebar for chat management -->
+        <div class="sidebar">
+            <!-- Top section for the logo and New Chat button -->
+            <div class="logo-container">
+                <img src="{% static 'myapp/image/logo.png' %}" alt="TravelMate Logo" class="logo">
+            </div>
+            <button id="new-chat-btn">New Chat</button>
+
+            <!-- Middle section for the main content -->
+            <div class="sidebar-content">
+                <!-- This section is reserved for additional content if needed -->
+            </div>
+
+            <!-- Footer section in the sidebar for user info and login/signup -->
+            <div class="sidebar-footer">
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'signup' %}">Sign Up</a>
+            </div>
+        </div>
+
+        <!-- Main chat area -->
+        <section id="hero">
+            <div class="hero-content">
+                <div class="chat-interface">
+                    <div class="chat-history" id="chat-history">
+                        <!-- The chat history will be populated dynamically -->
+                    </div>
+                    <form method="post" action="{% url 'chatbot' %}" id="chat-form">
+                        {% csrf_token %}
+                        <div class="input-section">
+                            <input type="text" id="user-input" name="user_input" placeholder="Write a message..." autocomplete="off">
+                            <button type="submit" id="submit-btn">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Include Highlight.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

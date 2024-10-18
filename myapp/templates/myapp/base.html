@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot for Travel</title>  
+    <link rel="stylesheet" href="{% static 'myapp/css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Pacifico&family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <script src="{% static 'myapp/js/script.js' %}" defer></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="{% url 'index' %}"><img src="{% static 'myapp/image/logo.png' %}" alt="TravelMate Logo" class="logo"></a>
+        </div>
+        <nav>
+            <ul>
+                {% if request.user.is_authenticated %}
+                    <!-- Check if the user is an admin -->
+                    {% if request.session.user_role == 'admin' %}
+                        <li><a href="/admin/">Admin Dashboard</a></li>
+                    {% else %}
+                        <li><a href="{% url 'user-dashboard' %}">User Dashboard</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        
+    </header>
+    <section id="hero">
+        <div class="hero-content">
+            <div class="logo1-container">
+                <img src="{% static 'myapp/image/bot-avatar.png' %}" alt="Bot Logo" class="logo1">
+            </div>
+            <div class="chat-interface">
+                <div class="chat-history" id="chat-history">
+                    <!-- Chat history will appear here -->
+                </div>
+                <form method="post" action="{% url 'chatbot' %}" id="chat-form">
+                    {% csrf_token %}
+                    <div class="input-section">
+                        <input type="text" id="user-input" name="user_input" placeholder="Write a message...">
+                        <button type="submit" id="submit-btn">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

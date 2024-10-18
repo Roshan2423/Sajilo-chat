@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags and title -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+
+    <!-- External stylesheets -->
+    <link rel="stylesheet" href="{% static 'myapp/css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+
+    <!-- External scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
+
+    <!-- Include your main script.js -->
+    <script src="{% static 'myapp/js/script.js' %}" defer></script>
+</head>
+<body>
+    <div class="chat-container">
+
+        <!-- Sidebar for chat management -->
+        <div class="sidebar">
+            <!-- Logo section -->
+            <div class="logo-container">
+                <img src="{% static 'myapp/image/logo.png' %}" alt="Chatbot Logo" class="logo">
+            </div>
+
+            <!-- Button to start a new chat -->
+            <button id="new-chat-btn">New Chat</button>
+
+            <!-- Recent conversations list -->
+            <div class="sidebar-content">
+                <h3>Your Conversations</h3>
+                <div id="recent-conversations"></div>
+            </div>
+
+            <!-- User info and logout section -->
+            <div class="sidebar-footer">
+                <p>Welcome, {{ user.username }}</p>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+                <a href="{% url 'password_change' %}">Change Password</a>
+            </div>
+        </div>
+
+        <!-- Main chat area -->
+        <section id="hero">
+            <div class="hero-content">
+                <div class="chat-interface">
+                    <div class="chat-history" id="chat-history">
+                        <!-- Chat history will populate here dynamically -->
+                    </div>
+
+                    <!-- Chat input form -->
+                    <form method="post" action="{% url 'chatbot' %}" id="chat-form">
+                        {% csrf_token %}
+                        <div class="input-section">
+                            <input type="text" id="user-input" name="user_input" 
+                                   placeholder="Write a message..." autocomplete="off">
+                            <button type="submit" id="submit-btn">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- External scripts for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+</html>
